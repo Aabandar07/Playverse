@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PLAYVERSE – Free Browser Games</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--tx:#0e1a3a;--mut:#5b6784;--ac:#ff5c35;--ac2:#2f6bff;--bd:#dfe4f0;--nav:#0b1530;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b1530;--card:#14224a;--tx:#eef2ff;--mut:#9aa8cf;--bd:#233463;--nav:#070e22}}
+:root[data-theme=dark]{--bg:#0b1530;--card:#14224a;--tx:#eef2ff;--mut:#9aa8cf;--bd:#233463;--nav:#070e22}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ac2);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--nav);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:20px;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:6px;background:none;border:0;color:#fff}
+.logo svg{width:28px;height:28px}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav button,.ib{background:none;border:0;color:#fff;padding:8px 11px;border-radius:10px;cursor:pointer;min-height:40px}
+nav button:hover,.ib:hover,nav button.on{background:rgba(255,255,255,.14)}
+.sp{flex:1}
+#q{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:20px;padding:8px 14px;min-width:0;width:200px;max-width:100%}
+#q::placeholder{color:#c5cffa}
+main{max-width:1200px;margin:0 auto;padding:16px 14px 40px;min-height:70vh}
+h2{font-size:20px;margin:26px 0 12px;display:flex;justify-content:space-between;align-items:center}
+h2 small{font-weight:500;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(10,20,60,.08);transition:transform .15s;cursor:pointer;text-align:left;padding:0;display:block;width:100%}
+@media(hover:hover){.card:hover{transform:translateY(-3px)}}
+.th{aspect-ratio:4/3;width:100%;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#fff;background-size:cover;background-position:center;position:relative}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ci{padding:9px 11px}.ci b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ci span{color:var(--mut);font-size:13px}
+.tag{position:absolute;top:8px;left:8px;background:var(--ac);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;z-index:1}
+.fav{position:absolute;top:6px;right:6px;z-index:2;background:rgba(0,0,0,.45);border:0;color:#fff;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:17px}
+.fav.on{color:#ff4d6d}
+.hero{display:grid;gap:0;border-radius:20px;overflow:hidden;background:var(--nav);color:#fff;grid-template-columns:1fr}
+@media(min-width:760px){.hero{grid-template-columns:1.3fr 1fr}}
+.hero .th{aspect-ratio:16/9;font-size:80px}
+.hero .tx{padding:22px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.hero h1{margin:0;font-size:28px}.hero p{margin:0;color:#c5cffa}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:12px;padding:11px 20px;font-weight:700;cursor:pointer;min-height:44px}
+.btn.s{background:var(--card);color:var(--tx);border:1px solid var(--bd)}.btn.d{background:#d93a3a}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1px solid var(--bd);background:var(--card);border-radius:20px;padding:6px 14px;cursor:pointer}.chip.on{background:var(--ac2);color:#fff;border-color:var(--ac2)}
+.player{background:#000;border-radius:16px;overflow:hidden;aspect-ratio:16/9;width:100%;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.empty{text-align:center;padding:40px 16px;color:var(--mut);background:var(--card);border:1px dashed var(--bd);border-radius:16px}
+.ad{min-height:0}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin:12px 0}
+label{display:block;font-weight:600;margin:10px 0 4px}
+input[type=text],input[type=url],select,textarea{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.stats div{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px}.stats b{font-size:26px;display:block}
+.err{color:#d93a3a;margin:6px 0}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--nav);color:#fff;padding:10px 18px;border-radius:12px;z-index:20;display:none}
+dialog{border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);max-width:90vw}
+footer{background:var(--nav);color:#c5cffa;padding:22px 14px;text-align:center;font-size:13px}
+footer button{background:none;border:0;color:#fff;cursor:pointer;text-decoration:underline;padding:4px 8px}
+.cols{display:grid;gap:14px;grid-template-columns:1fr}@media(min-width:800px){.cols{grid-template-columns:2fr 1fr}}.cols .box{margin:0}.shots{display:flex;gap:10px;overflow-x:auto;margin:12px 0}.shots img{height:150px;border-radius:12px;cursor:pointer}.shots.sm img{height:64px}.dl{width:100%;border-collapse:collapse}.dl td{padding:7px 0;border-bottom:1px solid var(--bd);vertical-align:top}.dl td:first-child{color:var(--mut);width:38%}.ci span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.up{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.up img{height:64px;border-radius:8px}.hint{color:var(--mut);font-size:13px}
+body::before{content:'';position:fixed;inset:-10%;z-index:-1;pointer-events:none;background:radial-gradient(600px 400px at 10% 0%,rgba(47,107,255,.28),transparent),radial-gradient(500px 400px at 90% 20%,rgba(255,92,53,.22),transparent),radial-gradient(600px 500px at 50% 100%,rgba(160,80,255,.2),transparent);animation:aur 14s ease-in-out infinite alternate}
+@keyframes aur{to{transform:scale(1.15) translate(2%,2%)}}
+.logo{text-shadow:0 0 14px rgba(255,92,53,.9)}.logo svg{animation:pulse 2.4s infinite}
+@keyframes pulse{50%{filter:drop-shadow(0 0 8px #ff5c35);transform:rotate(-6deg) scale(1.1)}}
+header{backdrop-filter:blur(10px);box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.card-w{animation:rise .5s both}#app.na .card-w{animation:none}
+@keyframes rise{from{opacity:0;transform:translateY(20px) scale(.96)}}
+.card{transition:transform .15s,box-shadow .25s}.card::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);transform:translateX(-120%);transition:transform .6s;pointer-events:none}
+.th img{transition:transform .4s}
+@media(hover:hover){.card:hover{box-shadow:0 14px 32px rgba(47,107,255,.4),0 0 0 2px var(--ac2)}.card:hover::after{transform:translateX(120%)}.card:hover .th img{transform:scale(1.1)}}
+.hero{box-shadow:0 18px 50px rgba(47,107,255,.4);background:linear-gradient(135deg,#0b1530,#1b2a6b)}.hero .th{animation:ken 14s ease-in-out infinite alternate}@keyframes ken{to{transform:scale(1.07)}}
+.hero h1{font-size:clamp(28px,5vw,46px);line-height:1.1;background:linear-gradient(90deg,#fff,#ffb199);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .btn{animation:glow 2s infinite}@keyframes glow{50%{box-shadow:0 0 30px rgba(255,92,53,.95)}}
+.btn{transition:transform .15s,box-shadow .2s;box-shadow:0 4px 14px rgba(255,92,53,.4)}.btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 8px 22px rgba(255,92,53,.6)}.btn:active{transform:scale(.95)}.btn.s{box-shadow:none}
+.player{box-shadow:0 0 0 2px var(--ac2),0 0 44px rgba(47,107,255,.5)}
+h2{text-shadow:0 0 18px rgba(47,107,255,.25)}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head><body>
+<header>
+<button class="logo" onclick="go('')" aria-label="PLAYVERSE home"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#ff5c35"/><path d="M12 8l12 8-12 8z" fill="#fff"/></svg>PLAYVERSE</button>
+<nav aria-label="Main"><button data-n="" onclick="go('')">Home</button><button data-n="all" onclick="go('all')">All Games</button><button data-n="new" onclick="go('new')">New</button><button data-n="pop" onclick="go('pop')">Popular</button><button data-n="favs" onclick="go('favs')">♥ Favorites</button><button id="adm" hidden data-n="admin" onclick="go('admin')">⚙ Admin</button></nav>
+<span class="sp"></span>
+<input id="q" type="search" placeholder="Search games…" aria-label="Search games" autocomplete="off">
+<button class="ib" id="sn" aria-label="Toggle sound">🔊</button><button class="ib" id="th" aria-label="Toggle theme">◐</button>
+</header>
+<main id="app"><div class="empty">Loading games…</div></main>
+<footer>
+<div><button onclick="info('About','PLAYVERSE is a temporary brand name for a collection of free HTML5 browser games.')">About</button><button onclick="info('Contact','[Contact email placeholder – add your real address]')">Contact</button><button onclick="info('Privacy Policy','[Placeholder – add your real privacy policy. Favorites are stored only in your browser.]')">Privacy</button><button onclick="info('Terms of Use','[Placeholder – add your real terms.]')">Terms</button></div>
+<div style="margin-top:8px">© <span id="yr"></span> PLAYVERSE · Ad space reserved for future use</div>
+</footer>
+<div id="toast" role="status"></div>
+<dialog id="dlg"><h3 id="dt" style="margin-top:0"></h3><p id="db"></p><form method="dialog" style="display:flex;gap:8px;justify-content:flex-end"><button class="btn s" value="no" id="dn">Cancel</button><button class="btn" value="ok" id="dy">OK</button></form></dialog>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CATS=['Action','Adventure','Racing','Simulation','Puzzle','Arcade','Multiplayer','Shooting','Survival','Other'];
+let games=[],db=null,user=null,isAdmin=false,loaded=false,favs=[],q='',cat='',edit=null,err=null;
+try{favs=JSON.parse(localStorage.getItem('pv_favs')||'[]')}catch(e){}
+function saveFavs(){try{localStorage.setItem('pv_favs',JSON.stringify(favs))}catch(e){}}
+try{const t=localStorage.getItem('pv_theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+$('#yr').textContent=new Date().getFullYear();
+$('#th').onclick=()=>{const d=document.documentElement,dark=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=dark?'light':'dark';try{localStorage.setItem('pv_theme',d.dataset.theme)}catch(e){}};
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2600)}
+function confirmD(title,body){return new Promise(r=>{$('#dt').textContent=title;$('#db').textContent=body;$('#dn').style.display='';$('#dy').textContent='OK';const d=$('#dlg');d.onclose=()=>r(d.returnValue==='ok');d.showModal()})}
+function info(t,b){$('#dt').textContent=t;$('#db').textContent=b;$('#dn').style.display='none';$('#dy').textContent='Close';$('#dlg').onclose=null;$('#dlg').showModal()}
+function go(h){location.hash=h;}
+const slugify=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const hue=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))%360;return h};
+const pub=()=>games.filter(g=>g.published);
+const okUrl=u=>{try{return new URL(u).protocol==='https:'}catch(e){return false}};
+const imgOk=u=>okUrl(u)||/^\/_blob\/[0-9a-f]{32}$/.test(u||'')||/^data:image\/(png|jpeg|webp|gif);base64,/.test(u||'');let assets=null;
+function card(g){
+ const fv=favs.includes(g.slug),isNew=Date.now()-(g.created||0)<7*864e5;
+ return `<div class="card-w" style="position:relative"><button class="fav ${fv?'on':''}" aria-label="${fv?'Remove from':'Add to'} favorites: ${esc(g.title)}" onclick="tf('${esc(g.slug)}')">${fv?'♥':'♡'}</button><button class="card" onclick="go('g-${esc(g.slug)}')" aria-label="Play ${esc(g.title)}"><div class="th" style="background:hsl(${hue(g.title)},65%,45%)">${g.featured?'<span class="tag">Featured</span>':isNew?'<span class="tag">New</span>':''}${esc(g.title[0]||'?')}${imgOk(g.thumb)?`<img src="${esc(g.thumb)}" alt="" loading="lazy" onerror="this.remove()">`:''}</div><div class="ci"><b>${esc(g.title)}</b><span>${esc(g.cat)}${g.short?' · '+esc(g.short):''}</span></div></button></div>`}
+function tf(s){const add=!favs.includes(s);favs=add?[...favs,s]:favs.filter(x=>x!==s);saveFavs();if(add){sfx.fav();confetti(28)}render()}
+function tagSearch(t){q=t;$('#q').value=t;location.hash.length>1?go(''):render()}
+function shotsHtml(){return (edit.shots||[]).map((s,i)=>`<span style="position:relative"><img src="${esc(s)}" alt="Screenshot ${i+1}"><button type="button" class="fav" style="top:2px;right:2px;width:26px;height:26px" aria-label="Remove screenshot ${i+1}" onclick="edit.shots.splice(${i},1);$('#shg').innerHTML=shotsHtml()">✕</button></span>`).join('')}
+function pick(kind){
+ if(!assets)return toast('Image upload is available to the owner/editor only');
+ const i=document.createElement('input');i.type='file';i.accept='image/png,image/jpeg,image/webp,image/gif';i.multiple=kind==='shots';
+ i.onchange=async()=>{for(const f of i.files){
+  if(!/^image\/(png|jpeg|webp|gif)$/.test(f.type))return toast('Only PNG, JPG, WebP or GIF images');
+  if(f.size>5*1048576)return toast('Image must be under 5 MB');
+  $('#upn').textContent='Uploading '+f.name+'…';
+  try{const r=await assets.upload(f),u=r.local||'/_blob/'+r.id;
+   if(kind==='cover'){$('#f_th').value=u;const p=$('#pv');p.src=u;p.hidden=false}else{edit.shots=[...(edit.shots||[]),u];$('#shg').innerHTML=shotsHtml()}
+   $('#upn').textContent='Uploaded ✓'}catch(e){$('#upn').textContent='';toast('Upload failed: '+(e.message||'error'))}}};
+ i.click()}
+function grid(list){return list.length?`<div class="grid">${list.map(card).join('')}</div>`:'<div class="empty">No games found.</div>'}
+function sec(t,list){return list.length?`<h2>${t}</h2>${grid(list.slice(0,8))}`:''}
+function matches(g){const s=q.toLowerCase();return !s||[g.title,g.desc,g.cat,(g.tags||[]).join(' ')].join(' ').toLowerCase().includes(s)}
+function chips(){const cs=[...new Set(pub().map(g=>g.cat))];return cs.length?`<div class="chips" role="group" aria-label="Categories"><button class="chip ${!cat?'on':''}" onclick="cat='';render()">All</button>${cs.map(c=>`<button class="chip ${cat===c?'on':''}" onclick="cat='${esc(c)}';render()">${esc(c)}</button>`).join('')}</div>`:''}
+function home(){
+ const p=pub();if(!p.length)return `<div class="empty"><h2 style="justify-content:center">No games yet</h2>${isAdmin?'<p>Open Admin to add your first game.</p><button class="btn" onclick="go(\'admin\')">Add a game</button>':'<p>Check back soon – new games are on the way!</p>'}</div>`;
+ const f=p.find(g=>g.featured)||p[0];
+ const byNew=[...p].sort((a,b)=>b.created-a.created),byPop=[...p].sort((a,b)=>(b.plays||0)-(a.plays||0));
+ let h=`<div class="hero"><div class="th" style="background:hsl(${hue(f.title)},65%,45%)">${esc(f.title[0])}${imgOk(f.thumb)?`<img src="${esc(f.thumb)}" alt="${esc(f.title)}" onerror="this.remove()">`:''}</div><div class="tx"><span class="tag" style="position:static;width:fit-content">Featured · ${esc(f.cat)}</span><h1>${esc(f.title)}</h1><p>${esc((f.desc||'').slice(0,140))}</p><div><button class="btn" onclick="go('g-${esc(f.slug)}')">▶ Play now</button></div></div></div>`;
+ h+=sec('Popular Games',byPop)+sec('Recently Added',byNew);
+ for(const c of [...new Set(p.map(g=>g.cat))])h+=sec(esc(c),p.filter(g=>g.cat===c));
+ return h}
+function listPage(t,list){return `<h2>${t}<small>${list.length} games</small></h2>${chips()}${grid(list.filter(g=>!cat||g.cat===cat))}`}
+function gamePage(slug){
+ const g=pub().find(x=>x.slug===slug)||(isAdmin&&games.find(x=>x.slug===slug));
+ if(!g)return `<div class="empty"><h2 style="justify-content:center">404 – Game not found</h2><p>It may have been removed or unpublished.</p><button class="btn" onclick="go('all')">Browse games</button></div>`;
+ const sim=pub().filter(x=>x.cat===g.cat&&x.slug!==g.slug).slice(0,4);
+ return `<h1 style="margin:6px 0">${esc(g.title)}</h1>${g.published?'':'<div class="err">Draft preview – not visible to visitors.</div>'}
+ <div class="player" id="pl"><div><p>Ready to play?</p>${okUrl(g.embed||g.url)?'<button class="btn" onclick="load(\''+esc(g.slug)+'\')">▶ Play</button>':'<p class="err">This game has no valid HTTPS URL.</p>'}</div></div>
+ <div class="bar"><button class="btn s" onclick="fs()">⛶ Fullscreen</button><button class="btn s" onclick="load('${esc(g.slug)}')">↻ Reload</button><button class="btn s" onclick="tf('${esc(g.slug)}')">${favs.includes(g.slug)?'♥ Favorited':'♡ Favorite'}</button><a class="btn s" style="text-decoration:none;display:inline-flex;align-items:center" href="${esc(g.url)}" target="_blank" rel="noopener">Open in new tab</a><button class="btn s" onclick="report('${esc(g.slug)}')">⚑ Report broken</button></div>
+ <div class="cols"><div class="box"><h3 style="margin-top:0">About this game</h3>${g.short?`<p><b>${esc(g.short)}</b></p>`:''}<p style="white-space:pre-line">${esc(g.desc)}</p>${(g.shots||[]).filter(imgOk).length?`<div class="shots">${g.shots.filter(imgOk).map(s=>`<img src="${esc(s)}" alt="${esc(g.title)} screenshot" loading="lazy" onclick="window.open(this.src)">`).join('')}</div>`:''}${g.instr?`<p><b>Controls:</b> ${esc(g.instr)}</p>`:''}</div><div class="box"><table class="dl"><tr><td>Category</td><td>${esc(g.cat)}</td></tr><tr><td>Platform</td><td>${esc(g.device||'PC & Mobile')}</td></tr><tr><td>Developer</td><td>${esc(g.dev||'Unknown')}</td></tr><tr><td>Updated</td><td>${g.updated?new Date(g.updated).toLocaleDateString():'–'}</td></tr></table><p>${(g.tags||[]).map(t=>`<button class="chip" data-t="${esc(t)}" onclick="tagSearch(this.dataset.t)">#${esc(t)}</button> `).join('')}</p></div></div>
+ <div class="ad" aria-hidden="true"></div>${sim.length?`<h2>Similar Games</h2>${grid(sim)}`:''}`}
+function load(slug){const g=games.find(x=>x.slug===slug),pl=$('#pl');if(!g||!pl)return;const u=g.embed||g.url;
+ pl.innerHTML='<p>Loading…</p>';const f=document.createElement('iframe');f.src=u;f.title=g.title;f.allow='fullscreen;autoplay;gamepad';f.setAttribute('sandbox','allow-scripts allow-same-origin allow-pointer-lock allow-popups');
+ let ok=false;f.onload=()=>{ok=true};pl.appendChild(f);
+ setTimeout(()=>{if(!ok)pl.innerHTML=`<div><p class="err">The game didn't load. The site may block embedding.</p><button class="btn" onclick="load('${esc(slug)}')">Retry</button> <a class="btn s" style="text-decoration:none;display:inline-block" href="${esc(u)}" target="_blank" rel="noopener">Open in new tab</a></div>`},12000)}
+function fs(){const p=$('#pl');if(!document.fullscreenEnabled||!p)return toast('Fullscreen is not supported here');document.fullscreenElement?document.exitFullscreen():p.requestFullscreen().catch(()=>toast('Fullscreen was blocked'))}
+async function report(slug){if(!db)return toast('Reporting unavailable right now');try{await db.collection('reports').doc(slug+'-'+Date.now()).set({slug,at:Date.now()});toast('Thanks – report sent')}catch(e){toast('Could not send report')}}
+/* admin */
+function admin(){
+ if(!isAdmin)return `<div class="empty"><h2 style="justify-content:center">Admin only</h2><p>Open this page as the owner or an editor of this artifact to manage games.</p></div>`;
+ if(edit)return form();
+ const p=pub().length,d=games.length-p;
+ return `<h2>Dashboard</h2><div class="stats"><div><b>${games.length}</b>Total</div><div><b>${p}</b>Published</div><div><b>${d}</b>Drafts</div><div><b>${games.filter(g=>g.featured).length}</b>Featured</div></div>
+ <div class="bar"><button class="btn" onclick="edit={};render()">＋ Add New Game</button></div>
+ <div class="box">${games.length?games.map(g=>`<div class="row"><div><b>${esc(g.title)}</b><br><small>${esc(g.cat)} · ${g.published?'Published':'Draft'}${g.featured?' · ★':''}</small></div><div><button class="btn s" onclick="edit=games.find(x=>x.slug==='${esc(g.slug)}');render()">Edit</button> <button class="btn s" onclick="tog('${esc(g.slug)}')">${g.published?'Unpublish':'Publish'}</button> <button class="btn d" onclick="del('${esc(g.slug)}')">Delete</button></div></div>`).join(''):'<div class="empty">No games yet.</div>'}</div>`}
+function form(){const g=edit,n=!g.slug;
+ return `<h2>${n?'Add Game':'Edit Game'}</h2><div class="box"><label for="f_t">Title *</label><input type="text" id="f_t" value="${esc(g.title)}" oninput="if(${n})$('#f_s').value=slugify(this.value)">
+ <label for="f_s">Slug *</label><input type="text" id="f_s" value="${esc(g.slug)}" ${n?'':'readonly'}>
+ <label for="f_d">Description</label><textarea id="f_d" rows="3">${esc(g.desc)}</textarea>
+ <label for="f_sh">Short tagline (shown on cards)</label><input type="text" id="f_sh" maxlength="70" value="${esc(g.short)}">
+ <label>Cover image</label><div class="up"><button type="button" class="btn s" onclick="pick('cover')">📁 Browse image…</button><img id="pv" alt="Cover preview" ${imgOk(g.thumb)?`src="${esc(g.thumb)}"`:'hidden'}></div><input type="text" id="f_th" value="${esc(g.thumb)}" placeholder="Uploaded image or https:// link" style="margin-top:8px">
+ <label>Screenshots</label><div class="up"><button type="button" class="btn s" onclick="pick('shots')">📁 Add screenshots…</button></div><div class="shots sm" id="shg">${shotsHtml()}</div><div class="hint" id="upn">PNG, JPG, WebP or GIF, up to 5 MB each.</div>
+ <label for="f_u">Playable game URL (https) *</label><input type="url" id="f_u" value="${esc(g.url)}">
+ <label for="f_e">Embed URL (optional)</label><input type="url" id="f_e" value="${esc(g.embed)}">
+ <label for="f_c">Category</label><select id="f_c">${CATS.map(c=>`<option ${g.cat===c?'selected':''}>${c}</option>`).join('')}</select>
+ <label for="f_tg">Tags (comma separated)</label><input type="text" id="f_tg" value="${esc((g.tags||[]).join(', '))}">
+ <label for="f_dv">Developer</label><input type="text" id="f_dv" value="${esc(g.dev)}">
+ <label for="f_dc">Device support</label><select id="f_dc">${['PC & Mobile','PC only','Mobile only'].map(c=>`<option ${g.device===c?'selected':''}>${c}</option>`).join('')}</select>
+ <label for="f_i">Instructions / controls</label><input type="text" id="f_i" value="${esc(g.instr)}">
+ <label><input type="checkbox" id="f_f" ${g.featured?'checked':''}> Featured</label>
+ <div class="err" id="fe"></div>
+ <div class="bar"><button class="btn s" onclick="save(false)">Save Draft</button><button class="btn" onclick="save(true)">Publish</button><button class="btn s" onclick="edit=null;render()">Cancel</button></div></div>`}
+async function save(p){
+ const v=i=>$('#f_'+i).value.trim(),e=m=>{$('#fe').textContent=m;return};
+ const title=v('t'),slug=slugify(v('s'));
+ if(!title)return e('Title is required.');if(!slug)return e('Slug is required.');
+ if(!okUrl(v('u')))return e('Game URL must be a valid https:// link.');
+ if(v('th')&&!imgOk(v('th')))return e('Cover image must be an uploaded image or https:// link.');
+ if(v('e')&&!okUrl(v('e')))return e('Embed URL must be an https:// link.');
+ const isNew=!edit.slug;if(isNew&&games.some(g=>g.slug===slug))return e('That slug is already used. Choose another.');
+ const d={title,slug,desc:v('d'),short:v('sh'),shots:edit.shots||[],thumb:v('th'),url:v('u'),embed:v('e'),cat:v('c'),tags:v('tg').split(',').map(t=>t.trim()).filter(Boolean),dev:v('dv'),device:v('dc'),instr:v('i'),featured:$('#f_f').checked,published:p,created:edit.created||Date.now(),updated:Date.now()};
+ try{await db.collection('games').doc(slug).set(d);edit=null;toast(p?'🎉 Game published':'Draft saved');if(p){confetti();sfx.ok()}}catch(x){e('Save failed: '+(x.message||'unknown error'))}}
+async function tog(s){const g=games.find(x=>x.slug===s);try{await db.collection('games').doc(s).update({published:!g.published,updated:Date.now()});toast(g.published?'Unpublished':'Published')}catch(e){toast('Failed: '+(e.message||'error'))}}
+async function del(s){if(!await confirmD('Delete game?','This permanently removes "'+s+'". This cannot be undone.'))return;try{await db.collection('games').doc(s).delete();toast('Deleted')}catch(e){toast('Failed: '+(e.message||'error'))}}
+/* router */
+function render(){
+ const h=location.hash.slice(1);let html;
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.n===h));
+ $('#adm').hidden=!isAdmin;
+ if(!loaded)html='<div class="empty">Loading games…</div>';
+ else if(err)html=`<div class="empty"><p class="err">${esc(err)}</p><button class="btn" onclick="location.reload()">Retry</button></div>`;
+ else if(q){const r=pub().filter(matches);html=`<h2>Results for "${esc(q)}"<small><button class="btn s" onclick="q='';$('#q').value='';render()">Clear</button></small></h2>${r.length?grid(r):`<div class="empty">No games match "${esc(q)}".</div>`}`}
+ else if(h.startsWith('g-'))html=gamePage(h.slice(2));
+ else if(h==='all')html=listPage('All Games',pub());
+ else if(h==='new')html=listPage('New Games',[...pub()].sort((a,b)=>b.created-a.created));
+ else if(h==='pop')html=listPage('Popular Games',[...pub()].sort((a,b)=>(b.plays||0)-(a.plays||0)));
+ else if(h==='favs')html=`<h2>Favorites</h2>${grid(pub().filter(g=>favs.includes(g.slug)))}`;
+ else if(h==='admin')html=admin();
+ else if(h==='')html=home();
+ else html='<div class="empty"><h2 style="justify-content:center">404</h2><button class="btn" onclick="go(\'\')">Go home</button></div>';
+ const a=$('#app');a.classList.toggle('na',h===lastH);lastH=h;a.innerHTML=html;a.querySelectorAll('.card-w').forEach((c,i)=>c.style.animationDelay=Math.min(i*45,700)+'ms');document.title=(h.startsWith('g-')&&games.find(g=>g.slug===h.slice(2))?.title||'PLAYVERSE')+' – Free Browser Games'}
+let lastH,lastC,ac=null,snd=true;try{snd=localStorage.getItem('pv_snd')!=='0'}catch(e){}
+function tone(f,d=.08,t='sine',v=.05,f2){if(!snd)return;try{ac=ac||new AudioContext();if(ac.state==='suspended')ac.resume();const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type=t;o.frequency.setValueAtTime(f,n);if(f2)o.frequency.exponentialRampToValueAtTime(f2,n+d);g.gain.setValueAtTime(v,n);g.gain.exponentialRampToValueAtTime(.0001,n+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(n+d)}catch(e){}}
+const sfx={hover:()=>tone(900,.04,'triangle',.02),click:()=>tone(500,.1,'square',.03,900),fav:()=>tone(700,.15,'sine',.06,1300),ok:()=>{tone(523,.12,'sine',.06);setTimeout(()=>tone(784,.14,'sine',.06),90);setTimeout(()=>tone(1046,.3,'sine',.05),180)}};
+$('#sn').textContent=snd?'🔊':'🔇';$('#sn').onclick=()=>{snd=!snd;$('#sn').textContent=snd?'🔊':'🔇';try{localStorage.setItem('pv_snd',snd?'1':'0')}catch(e){}if(snd)sfx.ok()};
+addEventListener('click',e=>{if(e.target.closest('button,a,.card')&&e.target.id!=='sn')sfx.click()});
+addEventListener('pointerover',e=>{if(e.pointerType!=='mouse')return;const c=e.target.closest('.card');if(c&&c!==lastC)sfx.hover();lastC=c});
+addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const c=e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`translateY(-4px) perspective(600px) rotateY(${x*10}deg) rotateX(${-y*10}deg)`});
+addEventListener('pointerout',e=>{const c=e.target.closest('.card');if(c)c.style.transform=''});
+function confetti(n=90){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const c=document.createElement('canvas');c.id='cf';c.width=innerWidth;c.height=innerHeight;document.body.appendChild(c);const x=c.getContext('2d'),P=[...Array(n)].map(()=>({x:innerWidth/2,y:innerHeight*.6,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,s:5+Math.random()*5,h:Math.random()*360,r:Math.random()*6}));let t=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;x.fillStyle=`hsl(${p.h},90%,60%)`;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);x.restore()});if(++t<90)requestAnimationFrame(f);else c.remove()})()}
+function localDb(){let L={};try{L=JSON.parse(localStorage.getItem('pv_local')||'{}')}catch(e){}const subs=[],sv=()=>{try{localStorage.setItem('pv_local',JSON.stringify(L))}catch(e){toast('Browser storage is full')}},push=()=>subs.forEach(f=>f());return{collection(n){L[n]=L[n]||{};return{doc(id){return{set:async d=>{L[n][id]=d;sv();push()},update:async d=>{L[n][id]={...L[n][id],...d};sv();push()},delete:async()=>{delete L[n][id];sv();push()}}},onSnapshot(cb){const f=()=>cb({docs:Object.values(L[n]).map(d=>({data:()=>d}))});subs.push(f);f()}}}}}
+let qt;$('#q').addEventListener('input',e=>{clearTimeout(qt);qt=setTimeout(()=>{q=e.target.value.trim();render()},200)});
+addEventListener('hashchange',()=>{edit=null;cat='';render();scrollTo(0,0)});
+render();
+(async()=>{
+ const tm=setTimeout(()=>{if(!loaded){loaded=true;err='Could not connect to the game database. Please try again.';render()}},10000);
+ try{
+  if(typeof claude==='undefined'){isAdmin=true;db=localDb();assets={upload:f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok({local:r.result});r.onerror=no;r.readAsDataURL(f)})}}else{user=await claude.use('user');db=await claude.use('db');try{assets=await claude.use('assets')}catch(e){}}
+  isAdmin=isAdmin||!!(user&&user.canEdit&&user.canEdit());
+  if(!db){clearTimeout(tm);loaded=true;err='Games are unavailable until you open this page from claude.ai.';render();return}
+  db.collection('games').onSnapshot(s=>{clearTimeout(tm);games=s.docs.map(d=>d.data());loaded=true;err=null;if(!edit||location.hash!=='#admin')render()},e=>{clearTimeout(tm);loaded=true;err='Database error: '+e.message;render()});
+ }catch(e){clearTimeout(tm);loaded=true;err='Could not start: '+e.message;render()}
+})();
+</script></body></html>
